@@ -24,7 +24,6 @@ It is time to run some tests against OMDb API - The Open Movie Database!
   - Verify year matches correct format
 
 4. Add a test that uses the i parameter to verify each title on page 1 is accessible via imdbID
-(should all of these tests be using the "Thomas" search?)
 
 5. Add a test that verifies none of the poster links on page 1 are broken
 
