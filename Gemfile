@@ -5,4 +5,5 @@ group :test do
   gem 'minitest'
   gem 'minitest-reporters'
   gem 'rest-client'
+  gem 'dotenv'
 end
