@@ -23,10 +23,12 @@ class ApiTest < Minitest::Test
     request("GET", "?s=thomas&apikey=#{ENV["OMDB_API_KEY"]}", {}, ENV["OMDB_BASE_URL"])
     results = last_response.obj["Search"]
     keys = ["Title", "Year", "imdbID", "Type", "Poster"]
+
     results.each do |result|
       keys.each {|key| assert result.keys.include?(key)}
       result.values.each {|value| assert_instance_of String, value}
       assert result["Title"].include?("Thomas")
+
       yr_length = (result["Year"].length)
       if yr_length < 6
         year = result["Year"][0...4].to_i
@@ -41,7 +43,7 @@ class ApiTest < Minitest::Test
   end
 
   def test_api_search_function_returns_imdb_accessible_results
-    request("GET", "?s=tank&apikey=#{ENV["OMDB_API_KEY"]}", {}, ENV["OMDB_BASE_URL"])
+    request("GET", "?s=thomas&apikey=#{ENV["OMDB_API_KEY"]}", {}, ENV["OMDB_BASE_URL"])
     results = last_response.obj["Search"]
 
     results.each do |result|
@@ -52,7 +54,7 @@ class ApiTest < Minitest::Test
   end
 
   def test_all_search_results_poster_links_work
-    request("GET", "?s=engine&apikey=#{ENV["OMDB_API_KEY"]}", {}, ENV["OMDB_BASE_URL"])
+    request("GET", "?s=thomas&apikey=#{ENV["OMDB_API_KEY"]}", {}, ENV["OMDB_BASE_URL"])
     results = last_response.obj["Search"]
 
     results.each do |result|
@@ -63,7 +65,7 @@ class ApiTest < Minitest::Test
   end
 
   def test_no_duplicate_search_results_in_first_5_pages
-    request("GET", "?s=friends&apikey=#{ENV["OMDB_API_KEY"]}", {}, ENV["OMDB_BASE_URL"])
+    request("GET", "?s=thomas&apikey=#{ENV["OMDB_API_KEY"]}", {}, ENV["OMDB_BASE_URL"])
     results = last_response.obj["Search"]
     page = 1
     five_page_results = []
@@ -76,5 +78,12 @@ class ApiTest < Minitest::Test
 
     assert_equal 50, five_page_results.length
     assert_equal 50, five_page_results.uniq.length
+  end
+
+  def test_there_are_less_than_30_movie_titles_containing_the_word_squash
+    request("GET", "?s=squash&apikey=#{ENV["OMDB_API_KEY"]}", {}, ENV["OMDB_BASE_URL"])
+    number_of_results = last_response.obj["totalResults"].to_i
+
+    assert number_of_results < 30
   end
 end
