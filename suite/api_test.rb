@@ -43,4 +43,14 @@ class ApiTest < Minitest::Test
     end
   end
 
+  def test_all_search_results_poster_links_work
+    request("GET", "?s=engine&apikey=#{ENV["OMDB_API_KEY"]}", {}, ENV["OMDB_BASE_URL"])
+    results = last_response.obj["Search"]
+
+    results.each do |result|
+      assert_equal "http", result["Poster"][0...4]
+      request("GET", "", {}, result["Poster"])
+      assert_equal 200, last_response.status
+    end
+  end
 end
