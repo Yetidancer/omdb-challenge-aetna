@@ -31,3 +31,17 @@ It is time to run some tests against OMDb API - The Open Movie Database!
 6. Add a test that verifies there are no duplicate records across the first 5 pages
 
 7. Add a test that verifies something you are curious about with regard to movies or data in the database.
+
+## Setup:
+
+1. Download this repository.
+
+2. Make sure that Ruby is installed on your computer.
+
+3. In the repository's root directory, run `bundle install` in your terminal to install gems and associated dependencies.
+
+4. Now you may run `ruby suite/api_test.rb` to run the test file for the OMDb API.
+
+5. Revel in all of the passing tests. Lament there are not more movies about squash.
+
+6. Feel free to change the search term that the tests are conducted with in the `setup` of the test file. Note, however, that the test for checking poster links may fail, as not all media in the database have poster links. There is an assertion in this test that checks that the poster link includes ".com", so that the test fails before a faulty request is sent.
