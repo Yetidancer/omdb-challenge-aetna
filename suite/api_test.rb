@@ -32,4 +32,15 @@ class ApiTest < Minitest::Test
     end
   end
 
+  def test_api_search_function_returns_imdb_accessible_results
+    request("GET", "?s=tank&apikey=#{ENV["OMDB_API_KEY"]}", {}, ENV["OMDB_BASE_URL"])
+    results = last_response.obj["Search"]
+
+    results.each do |result|
+      imdb_id =  result["imdbID"]
+      request("GET", "?i=#{imdb_id}&apikey=#{ENV["OMDB_API_KEY"]}", {}, ENV["OMDB_BASE_URL"])
+      assert last_response.obj["Response"]
+    end
+  end
+
 end
