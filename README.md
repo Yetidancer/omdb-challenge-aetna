@@ -21,11 +21,10 @@ It is time to run some tests against OMDb API - The Open Movie Database!
   - Verify all titles are a relevant match
   - Verify keys include Title, Year, imdbID, Type, and Poster for all records in the response
   - Verify values are all of the correct object class
-  (and this would be "movie"?)
   - Verify year matches correct format
-  (meaning a string between 1900 and 2030?)
 
 4. Add a test that uses the i parameter to verify each title on page 1 is accessible via imdbID
+(should all of these tests be using the "Thomas" search?)
 
 5. Add a test that verifies none of the poster links on page 1 are broken
 
