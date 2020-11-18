@@ -7,6 +7,7 @@ require 'byebug'
 require 'json'
 require 'socket'
 require 'base64'
+require 'dotenv/load'
 
 require_relative 'request_helper'
 
