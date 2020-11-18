@@ -21,7 +21,15 @@ class ApiTest < Minitest::Test
 
   def test_api_search_function_works_as_expected
     request("GET", "?s=thomas&apikey=#{ENV["OMDB_API_KEY"]}", {}, ENV["OMDB_BASE_URL"])
-    require "pry"; binding.pry
+    results = last_response.obj["Search"]
+    keys = ["Title", "Year", "imdbID", "Type", "Poster"]
+    results.each do |result|
+      assert_equal keys, result.keys
+      assert result["Title"].include?("Thomas")
+      assert_equal "movie", result["Type"]
+      year = result["Year"].to_i
+      assert (year > 1900 && year < 2030)
+    end
   end
 
 end
